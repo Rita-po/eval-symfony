@@ -10,7 +10,6 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
-        # used to reload user from session & other features (e.g. switch_user)
 
     firewalls:
         dev:
@@ -22,23 +21,19 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            # Pare-feu principal pour l'authentification utilisateur
-            # Utilise le fournisseur "app_user_provider" pour charger les utilisateurs
             form_login:
                 login_path: app_login
                 check_path: app_login
-                enable_csrf: false
-                # Configuration de l'authentification via un formulaire de connexion
-                # avec désactivation de la protection CSRF pour cette démo
+                enable_csrf: true
 
             logout:
                 path: app_logout
                 target: home
-                # Configuration du processus de déconnexion utilisateur
+                # Déconnexion utilisateur
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # Contrôle d'accès restreignant l'accès à l'URL commençant par "/admin" aux utilisateurs avec le rôle "ROLE_ADMIN"
+        # Contrôle d'accès aux URL commençant par "/admin" les rendant accessibles aux utilisateurs avec le rôle "ROLE_ADMIN"
 
 
 when@test:
