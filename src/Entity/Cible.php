@@ -38,6 +38,10 @@ class Cible
     {
         $this->missions = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return $this->getNom().' '.$this->getPrenom();
+    }
 
     public function getId(): ?int
     {

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Missions
+{% endblock %}
+
+{% block body %}
+	<h1 class="mt-5">Liste des missions</h1>
+
+	{% include "partials/pagination.html.twig" %}
+
+
+	<table class="table">
+		<thead>
+			<tr class="table-dark">
+				<th>Code</th>
+				<th>Titre</th>
+				<th>Description</th>
+				<th>Pays</th>
+				<th>Specialité requise</th>
+				<th>Statut</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for mission in missions %}
+				<tr class="table-secondary bn border-bottom border-2 border-dark">
+					<td>{{ mission.code }}</td>
+					<td>{{ mission.titre }}</td>
+					<td>{{ mission.description }}</td>
+					<td>{{ mission.pays }}</td>
+					<td>{{ mission.specialiteD }}</td>
+					<td>
+						<span class="badge rounded-pill
+								                                {% if mission.statut == 'En préparation' %}bg-info
+								                                {% elseif mission.statut == 'En cours' %}bg-warning
+								                                {% elseif mission.statut == 'Terminé' %}bg-success
+								                                {% elseif mission.statut == 'Échec' %}bg-danger
+								                                {% endif %}">
+							{{ mission.statut }}
+						</span>
+					</td>
+					<td>
+						<a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="btn btn-light">Détail</a>
+					</td>
+				</tr>
+
+			{% else %}
+				<tr>
+					<td colspan="7">Pas de missions trouvées...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+	{% include "partials/pagination.html.twig" %}
+{% endblock %}

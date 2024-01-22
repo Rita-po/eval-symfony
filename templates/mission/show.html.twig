@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mission
+	{{ mission.id }}
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4 ">
+		<div class="card mt-5 border-info mb-3 bg-info bg-opacity-10">
+            <div class="card-header border-info  mb-3">
+                <h1 class="card-title mb-0 ">Mission : {{ mission.titre }}</h1>
+            </div>
+		<div class="card-body row ">
+                <div class="col-md-6 ">
+                    <table class="table ">
+					<tbody>
+						<tr>
+							<th class ="bg-transparent">Date de début:</th>
+							<td class ="bg-transparent">{{ mission.dateDebut ? mission.dateDebut|date('d-m-Y') : 'N/A' }}</td>
+						</tr>
+
+						<tr>
+							<th class ="bg-transparent">Code:</th>
+							<td class ="bg-transparent">{{ mission.code }}</td>
+						</tr>
+						<tr>
+							<th class ="bg-transparent">Type:</th>
+							<td class ="bg-transparent">{{ mission.type }}</td>
+						</tr>
+						<tr>
+							<th class ="bg-transparent">Description:</th>
+							<td class ="bg-transparent">{{ mission.description }}</td>
+						</tr>
+						<th class ="bg-transparent">Agent(s):</th>
+						<td class ="bg-transparent">
+							<ul class="list-unstyled">
+								{% for agent in mission.agents %}
+									<li>
+										<strong>Code:</strong>
+										{{ agent.code }}<br>
+										<strong>Nom:</strong>
+										{{ agent.nom }}
+										{{ agent.prenom }}<br>
+										<strong>Date de naissance:</strong>
+										{{ agent.naissance|date('d-m-Y') }}<br>
+										<strong>Pays:</strong>
+										{{ agent.pays }}<br>
+										<strong>Spécialité:</strong>
+										{{ agent.specialite }}<br>
+									</li>
+								{% endfor %}
+							</ul>
+						</td>
+					</tbody>
+				</tr>
+				<tr>
+					<th class ="bg-transparent">Contact(s):</th>
+					<td class ="bg-transparent">
+						<ul class="list-unstyled">
+							{% for contact in mission.contacts %}
+								<li>
+									<strong>Code:</strong>
+									{{ contact.code }}<br>
+									<strong>Nom:</strong>
+									{{ contact.nom }}
+									{{ contact.prenom }}<br>
+									<strong>Date de naissance:</strong>
+									{{ contact.naissance|date('d-m-Y') }}<br>
+									<strong>Pays:</strong>
+									{{ contact.pays }}<br>
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Colonne de droite -->
+	<div class="col-md-6">
+                    <table class="table">
+			<tbody>
+            
+				<tr>
+					<th class ="bg-transparent">Date de fin:</th>
+					<td class ="bg-transparent">{{ mission.dateFin ? mission.dateFin|date('d-m-Y') : 'N/A' }}</td>
+				</tr>
+				<tr>
+                <tr>
+					<th class ="bg-transparent">Statut:</th>
+					<td class ="bg-transparent">{{ mission.statut }}</td>
+				</tr>
+					<th class ="bg-transparent">Pays:</th>
+					<td class ="bg-transparent">{{ mission.pays }}</td>
+				</tr>
+				<tr>
+					<th class ="bg-transparent">Spécialité(s) requise(s):</th>
+					<td class ="bg-transparent">{{ mission.specialiteD }}</td>
+				</tr>
+				<tr></tr>
+				<tr>
+					<th class ="bg-transparent">Cible(s):</th>
+					<td class ="bg-transparent">
+						<ul class="list-unstyled">
+							{% for cible in mission.cibles %}
+								<li>
+									<strong>Code:</strong>
+									{{ cible.code }}<br>
+									<strong>Nom:</strong>
+									{{ cible.nom }}
+									{{ cible.prenom }}<br>
+									<strong>Date de naissance:</strong>
+									{{ cible.naissance|date('d-m-Y') }}<br>
+									<strong>Pays:</strong>
+									{{ cible.pays }}<br>
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th class ="bg-transparent">Planque:</th>
+					<td class ="bg-transparent">
+						<ul class="list-unstyled">
+							{% for planque in mission.planques %}
+								<li>
+									<strong>Code:</strong>
+									{{ planque.code }}<br>
+									<strong>Adresse:</strong>
+									{{ planque.adresse }}<br>
+									<strong>Pays:</strong>
+									{{ planque.pays }}<br>
+									<strong>Type:</strong>
+									{{ planque.type }}<br>
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<a href="{{ path('app_mission') }}" class ="btn btn-info">Retour</a></div>{% endblock %}

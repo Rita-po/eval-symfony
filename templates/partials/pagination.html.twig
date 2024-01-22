@@ -1,0 +1,21 @@
+	<div class="pagination justify-content-center">
+		<ul
+			class="pagination">
+			{# Bouton précédent #}
+			<li class="page-item {% if pagination.currentPageNumber == 1 %}disabled{% endif %}">
+				<a class="page-link" href="{{ path('app_mission', {'page': pagination.currentPageNumber - 1}) }}" tabindex="-1" aria-disabled="true">Précédent</a>
+			</li>
+
+			{# Numéros de page #}
+			{% for page in range(1, pagination.pageCount) %}
+				<li class="page-item {% if page == pagination.currentPageNumber %}active{% endif %}">
+					<a class="page-link" href="{{ path('app_mission', {'page': page}) }}">{{ page }}</a>
+				</li>
+			{% endfor %}
+
+			{# Bouton suivant #}
+			<li class="page-item {% if pagination.currentPageNumber == pagination.pageCount %}disabled{% endif %}">
+				<a class="page-link" href="{{ path('app_mission', {'page': pagination.currentPageNumber + 1}) }}">Suivant</a>
+			</li>
+		</ul>
+	</div>

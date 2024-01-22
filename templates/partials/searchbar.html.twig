@@ -1,0 +1,70 @@
+<!-- Section contenant le formulaire de recherche -->
+<div class="mt-5 justify-content-center">
+	<form id="searchForm">
+		<!-- Input pour la saisie du terme de recherche -->
+		<div class="input-group mb-5">
+			<input class="form-control me-4" type="text" id="searchInput" placeholder="Rechercher une mission...">
+			<!-- Bouton de soumission du formulaire -->
+			<button class="btn btn-light" type="submit">Rechercher</button>
+		</div>
+	</form>
+</div>
+
+<!-- Section où seront affichés les résultats de la recherche -->
+<div id="searchResults" class="mt-5"></div>
+
+<!-- Script JavaScript -->
+<script>
+	// Ajoute un écouteur d'événements sur la soumission du formulaire
+	document.getElementById('searchForm').addEventListener('submit', function (event) {
+		// Empêche le comportement par défaut du formulaire (rechargement de la page)
+		event.preventDefault();
+
+		// Récupère le terme de recherche saisi par l'utilisateur
+		const searchTerm = document.getElementById('searchInput').value;
+
+		// Effectue une requête Fetch pour obtenir les résultats de la recherche
+		fetch(`/mission/search?term=${searchTerm}`)
+			.then(response => response.json()) // Convertit la réponse en JSON
+			.then(data => displaySearchResults(data)) // Appelle la fonction pour afficher les résultats
+			.catch(error => console.error(error)); // Gère les erreurs
+	});
+
+	// Fonction pour afficher les résultats de la recherche
+	function displaySearchResults(results) {
+		const searchResultsDiv = document.getElementById('searchResults');
+		searchResultsDiv.innerHTML = ''; // Efface le contenu précédent
+
+		// Boucle à travers les résultats et crée des éléments HTML pour les afficher
+		results.forEach(result => {
+			const missionDiv = document.createElement('div');
+			missionDiv.classList.add('search-result', 'card', 'mb-3', 'border-secondary'); // Ajoute des classes pour le style Bootstrap
+			missionDiv.innerHTML = `
+				<div class="card-body">
+					<h5 class="card-title">Code: ${result.code}<br>${result.titre}</h5>
+					<p class="card-text">${result.description}</p>
+					<a href="/mission/${result.id}" class="btn btn-primary mt-2 float-end">Détails</a>
+					<span class="badge rounded-pill ${getStatusBadgeClass(result.statut)}">${result.statut}</span>
+				</div>
+			</div>
+			`;
+			searchResultsDiv.appendChild(missionDiv);
+		});
+	}
+
+	// Fonction pour déterminer la classe Bootstrap pour les badges d'état en fonction du statut de la mission
+	function getStatusBadgeClass(statut) {
+		switch (statut) {
+			case 'En préparation':
+				return 'bg-info';
+			case 'En cours':
+				return 'bg-warning';
+			case 'Terminé':
+				return 'bg-success';
+			case 'Échec':
+				return 'bg-danger';
+			default:
+				return 'bg-secondary'; // Classe par défaut si le statut ne correspond à aucun cas précédent
+		}
+	}
+</script>
