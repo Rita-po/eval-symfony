@@ -44,3 +44,10 @@ Avant de pouvoir exécuter l'application localement, assurez-vous que les élém
 Pour ajouter les données de test avec Faker. Exécutez la commande suivante :
 
 ```php bin/console doctrine:fixtures:load```
+
+## Démarrage
+
+Pour tester l'app en local : 
+
+```symfony serve -d```
+
